@@ -7,7 +7,7 @@ function App() {
   return (
     <>
     <Highlight />
-      <Form />
+      {/* <Form /> */}
     </>
   )
 }
