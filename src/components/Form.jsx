@@ -1,72 +1,62 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import emailjs from 'emailjs-com';
 
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #2c2f33;
-  color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-`;
+// Initialisiere EmailJS direkt mit deinem Public Key
+emailjs.init('xif8fcq67foO9rUd4');  // Stelle sicher, dass dies dein korrekter Public Key ist
 
-const Title = styled.h2`
-  margin-bottom: 20px;
-`;
+function Form() {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-const Input = styled.input`
-  margin: 10px 0;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-`;
-
-const Button = styled.button`
-  background: #7289da;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: #5b6eae;
-  }
-`;
-
-const Form = () => {
-  const [name, setName] = useState('');
-  const [numberOfGuests, setNumberOfGuests] = useState('');
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`Name: ${name}, Number of Guests: ${numberOfGuests}`);
+  const onSubmit = (data, e) => {
+    // Ersetze 'service_6aw5w8n' und 'template_y93odsb' mit deinen tatsächlichen EmailJS Service und Template IDs
+    emailjs.sendForm('service_6aw5w8n', 'template_y93odsb', e.target)
+      .then((result) => {
+          console.log('SUCCESS!', result.text);
+          alert("E-Mail wurde erfolgreich gesendet!");
+          reset(); // Setzt das Formular nach dem Senden zurück, um erneutes Senden zu vermeiden
+      }, (error) => {
+          console.log('FAILED...', error);
+          alert("Fehler beim Senden der E-Mail.");
+      });
   };
 
   return (
-    <FormContainer>
-      <Title>Birthday Party Invitation</Title>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Your Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Input
-          type="number"
-          placeholder="Number of Guests"
-          value={numberOfGuests}
-          onChange={(e) => setNumberOfGuests(e.target.value)}
-        />
-        <Button type="submit">Submit</Button>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)} id="event-form">
+        <div>
+          <label>Vorname:</label>
+          <input
+            type="text"
+            {...register("vorname", { required: "Vorname ist erforderlich" })}
+          />
+          {errors.vorname && <span>{errors.vorname.message}</span>}
+        </div>
+        <div>
+          <label>Nachname:</label>
+          <input
+            type="text"
+            {...register("nachname", { required: "Nachname ist erforderlich" })}
+          />
+          {errors.nachname && <span>{errors.nachname.message}</span>}
+        </div>
+        <div>
+          <label>Anzahl der Personen:</label>
+          <select {...register("anzahlPersonen", { required: "Bitte wähle die Anzahl der Personen" })}>
+            <option value="">Wählen...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="mehr">Mehr als 5</option>
+          </select>
+          {errors.anzahlPersonen && <span>{errors.anzahlPersonen.message}</span>}
+        </div>
+        <button type="submit">Senden</button>
       </form>
-    </FormContainer>
+    </div>
   );
-};
+}
 
 export default Form;
