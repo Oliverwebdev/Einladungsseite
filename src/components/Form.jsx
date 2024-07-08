@@ -1,61 +1,159 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import emailjs from 'emailjs-com';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import emailjs from "emailjs-com";
+import styled, { keyframes } from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Initialisiere EmailJS direkt mit deinem Public Key
-emailjs.init('xif8fcq67foO9rUd4');  // Stelle sicher, dass dies dein korrekter Public Key ist
+emailjs.init("xif8fcq67foO9rUd4");
+
+const gradientBorder = keyframes`
+  0% { border-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet) 1; }
+  100% { border-image: linear-gradient(90deg, violet, indigo, blue, green, yellow, orange, red) 1; }
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+  min-width: 290px;
+  margin: 50px auto;
+  padding: 40px;
+  border: 11px solid transparent;
+  border-radius: 10px;
+  background: #0e0e0e;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  animation: ${gradientBorder} 5s linear infinite;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 600px) {
+    padding: 20px;
+    margin: 20px;
+  }
+`;
+
+const Label = styled.label`
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #ccc;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #555;
+  border-radius: 5px;
+  background: #1e1e1e;
+  color: #fff;
+  box-sizing: border-box;
+`;
+
+const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #555;
+  border-radius: 5px;
+  background: #1e1e1e;
+  color: #fff;
+  box-sizing: border-box;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 function Form() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [showForm, setShowForm] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const onSubmit = (data, e) => {
-    // Ersetze 'service_6aw5w8n' und 'template_y93odsb' mit deinen tatsächlichen EmailJS Service und Template IDs
-    emailjs.sendForm('service_6aw5w8n', 'template_y93odsb', e.target)
-      .then((result) => {
-          console.log('SUCCESS!', result.text);
-          alert("E-Mail wurde erfolgreich gesendet!");
-          reset(); // Setzt das Formular nach dem Senden zurück, um erneutes Senden zu vermeiden
-      }, (error) => {
-          console.log('FAILED...', error);
-          alert("Fehler beim Senden der E-Mail.");
-      });
+    emailjs.sendForm("service_6aw5w8n", "template_y93odsb", e.target).then(
+      (result) => {
+        console.log("SUCCESS!", result.text);
+        toast.success("E-Mail wurde erfolgreich gesendet!");
+        reset();
+        setShowForm(false); // Schließt das Formular nach erfolgreichem Senden
+      },
+      (error) => {
+        console.log("FAILED...", error);
+        toast.error("Fehler beim Senden der E-Mail.");
+      }
+    );
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)} id="event-form">
-        <div>
-          <label>Vorname:</label>
-          <input
-            type="text"
-            {...register("vorname", { required: "Vorname ist erforderlich" })}
-          />
-          {errors.vorname && <span>{errors.vorname.message}</span>}
-        </div>
-        <div>
-          <label>Nachname:</label>
-          <input
-            type="text"
-            {...register("nachname", { required: "Nachname ist erforderlich" })}
-          />
-          {errors.nachname && <span>{errors.nachname.message}</span>}
-        </div>
-        <div>
-          <label>Anzahl der Personen:</label>
-          <select {...register("anzahlPersonen", { required: "Bitte wähle die Anzahl der Personen" })}>
-            <option value="">Wählen...</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="mehr">Mehr als 5</option>
-          </select>
-          {errors.anzahlPersonen && <span>{errors.anzahlPersonen.message}</span>}
-        </div>
-        <button type="submit">Senden</button>
-      </form>
-    </div>
+    <>
+      {!showForm && <Button onClick={() => setShowForm(true)}>Formular anzeigen</Button>}
+      {showForm && (
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <Label>Vorname:</Label>
+            <Input
+              type="text"
+              {...register("vorname", { required: "Vorname ist erforderlich" })}
+            />
+            {errors.vorname && <span>{errors.vorname.message}</span>}
+          </div>
+          <div>
+            <Label>Nachname:</Label>
+            <Input
+              type="text"
+              {...register("nachname", { required: "Nachname ist erforderlich" })}
+            />
+            {errors.nachname && <span>{errors.nachname.message}</span>}
+          </div>
+          <div>
+            <Label>Anzahl der Personen:</Label>
+            <Select
+              {...register("anzahlPersonen", {
+                required: "Bitte wähle die Anzahl der Personen",
+              })}
+            >
+              <option value="">Wählen...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="mehr">Mehr als 5</option>
+            </Select>
+            {errors.anzahlPersonen && <span>{errors.anzahlPersonen.message}</span>}
+          </div>
+          <Button type="submit">Senden</Button>
+        </StyledForm>
+      )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 }
 
