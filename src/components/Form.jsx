@@ -7,9 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 
 emailjs.init("xif8fcq67foO9rUd4");
 
-const gradientBorder = keyframes`
-  0% { border-image: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet) 1; }
-  100% { border-image: linear-gradient(90deg, violet, indigo, blue, green, yellow, orange, red) 1; }
+const gradientBorderRotation = keyframes`
+  0% {
+    border-image-source: linear-gradient(0deg, red, orange, yellow, green, blue, indigo, violet);
+  }
+  100% {
+    border-image-source: linear-gradient(360deg, red, orange, yellow, green, blue, indigo, violet);
+  }
 `;
 
 const StyledForm = styled.form`
@@ -26,7 +30,8 @@ const StyledForm = styled.form`
   background: #0e0e0e;
   color: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  animation: ${gradientBorder} 5s linear infinite;
+  animation: ${gradientBorderRotation} 5s linear infinite;
+  border-image-slice: 1;
   align-items: center;
   justify-content: center;
 
@@ -158,3 +163,4 @@ function Form() {
 }
 
 export default Form;
+
