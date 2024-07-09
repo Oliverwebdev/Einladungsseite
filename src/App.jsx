@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Firework from "./components/Firework";
-import Form from "./components/Form";
+// import Firework from "./components/Firework";
+// import Form from "./components/Form";
 import Highlight from "./components/Highlight";
+import ConfettiEffect from './components/ConfettiEffect';
 
 // Styled component für den App Container
 const FullScreenContainer = styled.div`
@@ -26,6 +27,7 @@ function App() {
     <FullScreenContainer>
       {/* Aktivieren Sie die folgenden Komponenten nach Bedarf */}
       <Highlight />
+      <ConfettiEffect />
       {/* <Firework /> */}
       {/* <Form /> */}
     </FullScreenContainer>
