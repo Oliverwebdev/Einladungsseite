@@ -25,7 +25,7 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  padding-top: 100px; /* Added padding to move the button lower */
+  padding-top: 100px; 
 `;
 
 const StyledForm = styled.form`
@@ -66,6 +66,12 @@ const Input = styled.input`
   background: #1e1e1e;
   color: #fff;
   box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 10px #ff69b4;
+  }
 `;
 
 const Select = styled.select`
@@ -76,12 +82,18 @@ const Select = styled.select`
   background: #1e1e1e;
   color: #fff;
   box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 10px #ff69b4;
+  }
 `;
 
 const Button = styled.button`
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  background-color: white;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -90,6 +102,8 @@ const Button = styled.button`
 
   &:hover {
     background-color: #0056b3;
+    color: white;
+    box-shadow: 0 0 10px #0056b3;
   }
 `;
 
@@ -108,7 +122,7 @@ function Form() {
         console.log("SUCCESS!", result.text);
         toast.success("E-Mail wurde erfolgreich gesendet!");
         reset();
-        setShowForm(false); // Schließt das Formular nach erfolgreichem Senden
+        setShowForm(false);
       },
       (error) => {
         console.log("FAILED...", error);
