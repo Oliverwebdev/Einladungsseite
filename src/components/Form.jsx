@@ -120,7 +120,7 @@ function Form() {
     emailjs.sendForm("service_6aw5w8n", "template_y93odsb", e.target).then(
       (result) => {
         console.log("SUCCESS!", result.text);
-        toast.success("E-Mail wurde erfolgreich gesendet!");
+        toast.success("Senden erfolgreich.");
         reset();
         setShowForm(false);
       },
@@ -134,7 +134,7 @@ function Form() {
   return (
     <>
       <Container>
-        {!showForm && <Button onClick={() => setShowForm(true)}>Zur Anmeldung</Button>}
+        {!showForm && <Button onClick={() => setShowForm(true)}>Zur Zusage</Button>}
         {showForm && (
           <StyledForm onSubmit={handleSubmit(onSubmit)}>
             <div>
