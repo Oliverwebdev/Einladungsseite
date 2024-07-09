@@ -25,9 +25,9 @@ function App() {
   return (
     <FullScreenContainer>
       {/* Aktivieren Sie die folgenden Komponenten nach Bedarf */}
-      {/* <Highlight /> */}
+      <Highlight />
       {/* <Firework /> */}
-      <Form />
+      {/* <Form /> */}
     </FullScreenContainer>
   );
 }

@@ -16,6 +16,18 @@ const gradientBorderRotation = keyframes`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 100px; /* Added padding to move the button lower */
+`;
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -23,7 +35,6 @@ const StyledForm = styled.form`
   width: 100%;
   max-width: 500px;
   min-width: 290px;
-  margin: 50px auto;
   padding: 40px;
   border: 11px solid transparent;
   border-radius: 10px;
@@ -108,45 +119,47 @@ function Form() {
 
   return (
     <>
-      {!showForm && <Button onClick={() => setShowForm(true)}>Formular anzeigen</Button>}
-      {showForm && (
-        <StyledForm onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Label>Vorname:</Label>
-            <Input
-              type="text"
-              {...register("vorname", { required: "Vorname ist erforderlich" })}
-            />
-            {errors.vorname && <span>{errors.vorname.message}</span>}
-          </div>
-          <div>
-            <Label>Nachname:</Label>
-            <Input
-              type="text"
-              {...register("nachname", { required: "Nachname ist erforderlich" })}
-            />
-            {errors.nachname && <span>{errors.nachname.message}</span>}
-          </div>
-          <div>
-            <Label>Anzahl der Personen:</Label>
-            <Select
-              {...register("anzahlPersonen", {
-                required: "Bitte wähle die Anzahl der Personen",
-              })}
-            >
-              <option value="">Wählen...</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="mehr">Mehr als 5</option>
-            </Select>
-            {errors.anzahlPersonen && <span>{errors.anzahlPersonen.message}</span>}
-          </div>
-          <Button type="submit">Senden</Button>
-        </StyledForm>
-      )}
+      <Container>
+        {!showForm && <Button onClick={() => setShowForm(true)}>Formular anzeigen</Button>}
+        {showForm && (
+          <StyledForm onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <Label>Vorname:</Label>
+              <Input
+                type="text"
+                {...register("vorname", { required: "Vorname ist erforderlich" })}
+              />
+              {errors.vorname && <span>{errors.vorname.message}</span>}
+            </div>
+            <div>
+              <Label>Nachname:</Label>
+              <Input
+                type="text"
+                {...register("nachname", { required: "Nachname ist erforderlich" })}
+              />
+              {errors.nachname && <span>{errors.nachname.message}</span>}
+            </div>
+            <div>
+              <Label>Anzahl der Personen:</Label>
+              <Select
+                {...register("anzahlPersonen", {
+                  required: "Bitte wähle die Anzahl der Personen",
+                })}
+              >
+                <option value="">Wählen...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="mehr">Mehr als 5</option>
+              </Select>
+              {errors.anzahlPersonen && <span>{errors.anzahlPersonen.message}</span>}
+            </div>
+            <Button type="submit">Senden</Button>
+          </StyledForm>
+        )}
+      </Container>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -163,4 +176,3 @@ function Form() {
 }
 
 export default Form;
-

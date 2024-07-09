@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes, createGlobalStyle } from 'styled-components';
+import Form from './Form';
 
 // Keyframes für die Animation
 const fadeIn = keyframes`
@@ -60,6 +61,7 @@ function Highlight() {
   return (
     <>
       <GlobalStyle />
+      <Form />
       <HighlightContainer>
         <HighlightImage src="/einladungsbild.jpeg" alt="Einladungsbild" />
       </HighlightContainer>
