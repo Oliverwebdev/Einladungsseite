@@ -55,7 +55,7 @@ function Highlight() {
       <GlobalStyle />
       <Form />
       <HighlightContainer>
-        <HighlightImage src="/einladungsbild.jpeg" alt="Einladungsbild" />
+        <HighlightImage src="/WhatsApp Image 2024-07-09 at 18.05.07.jpeg" alt="Einladungsbild" />
       </HighlightContainer>
     </>
   );
