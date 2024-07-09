@@ -3,14 +3,7 @@ import styled, { keyframes, createGlobalStyle } from 'styled-components';
 import Form from './Form';
 
 // Keyframes für die Animation
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
+
 
 // Global Styles um das Scrollen auf der X- und Y-Achse zu verhindern
 const GlobalStyle = createGlobalStyle`
@@ -30,7 +23,6 @@ const HighlightContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  animation: ${fadeIn} 2s ease-in-out;
   background-color: #000;
 
   @media (max-width: 390px) {

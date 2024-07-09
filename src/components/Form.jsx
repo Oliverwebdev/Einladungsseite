@@ -120,7 +120,7 @@ function Form() {
   return (
     <>
       <Container>
-        {!showForm && <Button onClick={() => setShowForm(true)}>Formular anzeigen</Button>}
+        {!showForm && <Button onClick={() => setShowForm(true)}>Zur Anmeldung</Button>}
         {showForm && (
           <StyledForm onSubmit={handleSubmit(onSubmit)}>
             <div>
