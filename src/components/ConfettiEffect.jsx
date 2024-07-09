@@ -15,23 +15,23 @@ function ConfettiEffect() {
             max: 360
           },
           delay: {
-            min: 15,
-            max: 30
+            min: 30,  // Erhöhte Verzögerung zwischen den Explosionen
+            max: 60
           },
-          speed: 3,
-          acceleration: 1.05,
-          friction: 0.98,
+          speed: 2,  // Reduzierte Geschwindigkeit
+          acceleration: 1.03,
+          friction: 0.97,
           gravity: 1.2,
-          particles: 100,
-          trace: 5,
-          explosion: 10,
+          particles: 50,  // Reduzierte Partikelanzahl
+          trace: 3,  // Reduzierte Verfolgungseffekt
+          explosion: 5,  // Weniger intensive Explosion
           autoresize: true,
           brightness: {
-            min: 50,
-            max: 80,
+            min: 40,  // Reduzierte Helligkeit
+            max: 70,
             decay: {
-              min: 0.015,
-              max: 0.03
+              min: 0.02,
+              max: 0.04
             }
           },
           boundaries: {
@@ -50,7 +50,8 @@ function ConfettiEffect() {
           width: '100%',
           height: '100%',
           position: 'fixed',
-          zIndex: 9999
+          pointerEvents: 'none',  // Dadurch wird verhindert, dass das Feuerwerk andere Interaktionen behindert
+          zIndex: 1  // Das Feuerwerk wird hinter anderen Elementen angezeigt
         }}
       />
     </div>
